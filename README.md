@@ -7,5 +7,5 @@ There are two main folders in this project:
 	rules: contains all example rules used for the case study of'Stockholm heritage building map'
 	
 Contact:
-	Weiming Huang
+	Weiming Huang<br />
 	GIS Centre, Lund University, Sweden
