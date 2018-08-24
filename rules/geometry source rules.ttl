@@ -1,0 +1,77 @@
+#This file contais the rules used for the representing the knowledge of which geometries should used for rendering 
+#on the map, according to the visualisation scale and the availbility of correponding geometry in NMA dataset.
+
+#author: Weiming Huang @ Lund University, Sweden
+#email: weiming.huang@nateko.lu.se
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix symbol: <https://gis.lu.se/ont/data_portrayal/symbol#>.
+@prefix bu_2d: <http://inspire.ec.europa.eu/ont/bu-core2d#>.
+@prefix bu_base: <http://inspire.ec.europa.eu/ont/bu-base#>.
+@prefix scale: <https://gis.lu.se/ont/visualisation_scale#>.
+@prefix gs: <https://gis.lu.se/ont/geometry_source#>.
+@prefix geo: <http://www.opengis.net/ont/geosparql#>.
+
+<http://inspire.ec.europa.eu/ont/bu-core2d#Building> a owl:Class ;
+	rdfs:label "2d building class" ;
+	#first rule that formulates if the heritage building has a corresponding feature in the NMA dataset, and the NMA feature has 
+	#geometry that should be rendered in the current client visualisation scale, then use that geometry to render the building, please
+	#note that the recommendended visualisation scale ranges are modelled as metadata for GeometrySet in the NMA data.
+	<http://spinrdf.org/spin#rule> [
+	a <http://spinrdf.org/sp#Construct> ;
+	<http://spinrdf.org/spin#thisUnbound> true; 
+	<http://spinrdf.org/sp#text> """ 
+		
+		CONSTRUCT { ?this gs:isVisualisedBy ?geomInWKT }
+		WHERE {
+			SERVICE <http://localhost:5820/heritage_bu/query/>{
+			GRAPH <http://gis.lu.se/ld/heritage_bu> {
+				?this a bu_2d:Building.
+				?this skos:closeMatch ?NMABu.
+			}}
+			SERVICE <http://localhost:5820/NMA_MS/query/>{
+			GRAPH <http://gis.lu.se/ld/heritage_bu/NMA>
+			{
+				?NMABu bu_2d:geometry2D ?2Dgeom.
+					
+			}
+			?geom_set a <https://gis.lu.se/ont/visualisation_scale#GeometrySet>.
+			GRAPH ?geom_set{
+				?2Dgeom a <http://inspire.ec.europa.eu/ont/bu-base#BuildingGeometry2D>.
+				?2Dgeom bu_base:BuildingGeometry2D.geometry [
+							geo:asWKT ?geomInWKT].
+			}
+			?geom_set <https://gis.lu.se/ont/visualisation_scale#hasScale> [
+				<https://gis.lu.se/ont/visualisation_scale#hasMinScaleDenominator> ?min_scale;
+				<https://gis.lu.se/ont/visualisation_scale#hasMaxScaleDenominator> ?max_scale]
+			}
+			?client_scale a scale:ClientVisualisationScale;
+						scale:hasScaleValueDenominator ?rendering_scale.
+			FILTER (?min_scale<?rendering_scale && ?max_scale>=?rendering_scale)
+            }
+            """];
+	#second rule that formulates that if there is no geometry that should be rendered in the current client visualisation scale for the
+	#heritage building, then use the geometry in its own dataset (point geometries). This rule is dependent on the first rule, but the order
+	#in which the rules appear does not matter.
+	<http://spinrdf.org/spin#rule> [
+	a <http://spinrdf.org/sp#Construct> ;
+	<http://spinrdf.org/spin#thisUnbound> true; 
+	<http://spinrdf.org/sp#text> """ 
+		
+		CONSTRUCT { ?this gs:isVisualisedBy ?geomInWKT }
+		WHERE {
+		
+			SERVICE <http://localhost:5820/heritage_bu/query/>{
+			GRAPH <http://gis.lu.se/ld/heritage_bu> {
+				?this a bu_2d:Building.
+				?this skos:closeMatch ?NMABu.
+				?this bu_2d:geometry2D/bu_base:BuildingGeometry2D.geometry [
+							geo:asWKT ?geomInWKT]
+			}}
+			FILTER NOT EXISTS{?this gs:isVisualisedBy ?geomInWKTjk}			
+            }
+            """].

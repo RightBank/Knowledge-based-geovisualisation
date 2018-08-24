@@ -1,0 +1,184 @@
+@prefix : <https://gis.lu.se/ont/data_portrayal/symbol#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix skos1: <http://www.w3.org/2008/05/skos#> .
+@prefix terms: <http://purl.org/dc/terms/> .
+@base <https://gis.lu.se/ont/data_portrayal/symbol> .
+
+<https://gis.lu.se/ont/data_portrayal/symbol> rdf:type owl:Ontology ;
+                                               owl:imports <https://gis.lu.se/ont/data_portrayal/legend> ,
+                                                           <https://gis.lu.se/ont/data_portrayal/symbolizer> ;
+                                               dc:date "2018-08-02" ;
+                                               rdfs:comment """This file is created by:
+Weiming Huang
+GIS Centre
+Lund University
+weiming.huang@nateko.lu.se"""@en ,
+                                                            "The ontology is symbol ontology, which is a sub-ontology that comprises a part of the data portrayal ontologies (knowledge base)."@en .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/contributor
+dc:contributor rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/creator
+dc:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/date
+dc:date rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/description
+dc:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/hasVersion
+terms:hasVersion rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/issued
+terms:issued rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#prefLabel
+skos:prefLabel rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2008/05/skos#definition
+skos1:definition rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.opengis.net/ont/geosparql#gmlLiteral
+<http://www.opengis.net/ont/geosparql#gmlLiteral> rdf:type rdfs:Datatype ;
+                                                  dc:contributor "Matthew Perry" ;
+                                                  dc:creator "OGC GeoSPARQL 1.0 Standard Working Group" ;
+                                                  dc:date "2011-06-16"^^xsd:date ;
+                                                  dc:description """
+      A GML serialization of a geometry object.
+    """@en ;
+                                                  rdfs:comment """
+      A GML serialization of a geometry object.
+    """@en ;
+                                                  rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql> ,
+                                                                   <http://www.opengis.net/spec/geosparql/1.0> ;
+                                                  rdfs:label "GML Literal"@en ;
+                                                  skos:definition """
+      A GML serialization of a geometry object.
+    """@en ;
+                                                  skos:prefLabel "GML Literal"@en .
+
+
+###  http://www.opengis.net/ont/geosparql#wktLiteral
+<http://www.opengis.net/ont/geosparql#wktLiteral> rdf:type rdfs:Datatype ;
+                                                  dc:contributor "Matthew Perry" ;
+                                                  dc:creator "OGC GeoSPARQL 1.0 Standard Working Group" ;
+                                                  dc:date "2011-06-16"^^xsd:date ;
+                                                  dc:description """
+      A Well-known Text serialization of a geometry object.
+    """@en ;
+                                                  rdfs:comment """
+      A Well-known Text serialization of a geometry object.
+    """@en ;
+                                                  rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql> ,
+                                                                   <http://www.opengis.net/spec/geosparql/1.0> ;
+                                                  rdfs:label "Well-known Text Literal"@en ;
+                                                  skos:definition """
+      A Well-known Text serialization of a geometry object.
+    """@en ;
+                                                  skos:prefLabel "Well-known Text Literal"@en .
+
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://gis.lu.se/ont/data_portrayal/symbol#denotes
+:denotes rdf:type owl:ObjectProperty ;
+         rdfs:range skos1:Concept .
+
+
+###  https://gis.lu.se/ont/data_portrayal/symbol#hasSymbol
+:hasSymbol rdf:type owl:ObjectProperty ;
+           rdfs:range :Symbol .
+
+
+###  https://gis.lu.se/ont/data_portrayal/symbolizer#hasSymbolizer
+<https://gis.lu.se/ont/data_portrayal/symbolizer#hasSymbolizer> rdf:type owl:ObjectProperty ;
+                                                                rdfs:domain :Symbol ;
+                                                                rdfs:range <https://gis.lu.se/ont/data_portrayal/symbolizer#Symbolizer> .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://gis.lu.se/ont/data_portrayal/symbol#browseGraphic
+:browseGraphic rdf:type owl:DatatypeProperty ;
+               rdfs:range xsd:anyURI ;
+               rdfs:comment "Reference a graphic representing the symbol"@en .
+
+
+###  https://gis.lu.se/ont/data_portrayal/symbol#specification
+:specification rdf:type owl:DatatypeProperty ;
+               rdfs:range xsd:anyURI ;
+               rdfs:comment "Cites the specification standard for the SymbolSet"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.w3.org/1999/02/22-rdf-syntax-ns#List
+rdf:List rdf:type owl:Class ;
+         rdfs:subClassOf rdfs:Resource ;
+         rdfs:comment "The class of RDF Lists." ;
+         rdfs:isDefinedBy rdf: ;
+         rdfs:label "List" .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#Resource
+rdfs:Resource rdf:type owl:Class .
+
+
+###  http://www.w3.org/2008/05/skos#Concept
+skos1:Concept rdf:type owl:Class ;
+              terms:issued "2008-05-xx" ;
+              rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+              rdfs:label "Concept"@en ;
+              skos1:definition "An abstract idea or notion; a unit of thought."@en .
+
+
+###  https://gis.lu.se/ont/data_portrayal/symbol#Symbol
+:Symbol rdf:type owl:Class .
+
+
+###  https://gis.lu.se/ont/data_portrayal/symbol#SymbolSet
+:SymbolSet rdf:type owl:Class .
+
+
+###  https://gis.lu.se/ont/data_portrayal/symbolizer#Symbolizer
+<https://gis.lu.se/ont/data_portrayal/symbolizer#Symbolizer> rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi

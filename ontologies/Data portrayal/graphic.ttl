@@ -1,0 +1,554 @@
+@prefix : <https://gis.lu.se/ont/data_portrayal/graphic#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix skos1: <http://www.w3.org/2008/05/skos#> .
+@prefix terms: <http://purl.org/dc/terms/> .
+@base <https://gis.lu.se/ont/data_portrayal/graphic> .
+
+<https://gis.lu.se/ont/data_portrayal/graphic> rdf:type owl:Ontology ;
+                                                dc:date "2018-08-02" ;
+                                                rdfs:comment """The ontology is Graphic ontology, which is a sub-ontology that comprises a part of the data portrayal ontologies (knowledge base).
+
+The design of this ontology is in line with Styled Layer Descriptor (SLD). This ontology is bascailly the same as the Graphic ontology developed during OGC Testbed 12 Semantic Portrayal (http://docs.opengeospatial.org/per/16-059.html)"""@en ;
+                                                rdfs:seeAlso "http://docs.opengeospatial.org/per/16-059.html" ;
+                                                rdfs:label "Graphic ontology"@en ;
+                                                rdfs:comment """This file is created by:
+Weiming Huang
+GIS Centre
+Lund University
+weiming.huang@nateko.lu.se"""@en .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/contributor
+dc:contributor rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/creator
+dc:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/date
+dc:date rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/description
+dc:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/hasVersion
+terms:hasVersion rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/issued
+terms:issued rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#prefLabel
+skos:prefLabel rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2008/05/skos#definition
+skos1:definition rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.opengis.net/ont/geosparql#gmlLiteral
+<http://www.opengis.net/ont/geosparql#gmlLiteral> rdf:type rdfs:Datatype ;
+                                                  dc:contributor "Matthew Perry" ;
+                                                  dc:creator "OGC GeoSPARQL 1.0 Standard Working Group" ;
+                                                  dc:date "2011-06-16"^^xsd:date ;
+                                                  dc:description """
+      A GML serialization of a geometry object.
+    """@en ;
+                                                  rdfs:comment """
+      A GML serialization of a geometry object.
+    """@en ;
+                                                  rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql> ,
+                                                                   <http://www.opengis.net/spec/geosparql/1.0> ;
+                                                  rdfs:label "GML Literal"@en ;
+                                                  skos:definition """
+      A GML serialization of a geometry object.
+    """@en ;
+                                                  skos:prefLabel "GML Literal"@en .
+
+
+###  http://www.opengis.net/ont/geosparql#wktLiteral
+<http://www.opengis.net/ont/geosparql#wktLiteral> rdf:type rdfs:Datatype ;
+                                                  dc:contributor "Matthew Perry" ;
+                                                  dc:creator "OGC GeoSPARQL 1.0 Standard Working Group" ;
+                                                  dc:date "2011-06-16"^^xsd:date ;
+                                                  dc:description """
+      A Well-known Text serialization of a geometry object.
+    """@en ;
+                                                  rdfs:comment """
+      A Well-known Text serialization of a geometry object.
+    """@en ;
+                                                  rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql> ,
+                                                                   <http://www.opengis.net/spec/geosparql/1.0> ;
+                                                  rdfs:label "Well-known Text Literal"@en ;
+                                                  skos:definition """
+      A Well-known Text serialization of a geometry object.
+    """@en ;
+                                                  skos:prefLabel "Well-known Text Literal"@en .
+
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#cssColorLiteral
+:cssColorLiteral rdf:type rdfs:Datatype ;
+                 rdfs:comment "Representing the CSS values"@en .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#hasAnchorPoint
+:hasAnchorPoint rdf:type owl:ObjectProperty ;
+                rdfs:range :AnchorPoint .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#hasDisplacement
+:hasDisplacement rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty ;
+                 rdfs:range :Displacement .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#hasExternalGraphic
+:hasExternalGraphic rdf:type owl:ObjectProperty ;
+                    rdfs:range :ExternalGraphic .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#hasFill
+:hasFill rdf:type owl:ObjectProperty ;
+         rdfs:range :Fill .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#hasFillColor
+:hasFillColor rdf:type owl:ObjectProperty ;
+              rdfs:range :Color .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#hasFont
+:hasFont rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         rdfs:range :Font .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#hasGeometricProperty
+:hasGeometricProperty rdf:type owl:ObjectProperty .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#hasGraphicFill
+:hasGraphicFill rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
+                rdfs:range :GraphicFill .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#hasGraphicStroke
+:hasGraphicStroke rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf owl:topObjectProperty ;
+                  rdfs:range :GraphicStroke .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#hasGraphicSymbol
+:hasGraphicSymbol rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf owl:topObjectProperty ;
+                  rdfs:range :GraphicSymbol .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#hasHalo
+:hasHalo rdf:type owl:ObjectProperty ;
+         rdfs:range :Halo .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#hasLabelPlacement
+:hasLabelPlacement rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#hasMark
+:hasMark rdf:type owl:ObjectProperty ;
+         rdfs:range :Mark .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#hasMarkIndex
+:hasMarkIndex rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#hasMimeType
+:hasMimeType rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :hasShape .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#hasShape
+:hasShape rdf:type owl:ObjectProperty .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#hasStroke
+:hasStroke rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty ;
+           rdfs:range :Stroke .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#hasStrokeColor
+:hasStrokeColor rdf:type owl:ObjectProperty ;
+                rdfs:range :Color .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#anchorPointX
+:anchorPointX rdf:type owl:DatatypeProperty ;
+              rdfs:range xsd:decimal .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#anchorPointY
+:anchorPointY rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:range xsd:decimal .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#displacementX
+:displacementX rdf:type owl:DatatypeProperty ;
+               rdfs:range xsd:decimal .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#displacementY
+:displacementY rdf:type owl:DatatypeProperty ;
+               rdfs:range xsd:decimal .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#fillColor
+:fillColor rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf owl:topDataProperty ;
+           rdfs:range :cssColorLiteral .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#fillOpacity
+:fillOpacity rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf owl:topDataProperty ;
+             rdfs:range xsd:decimal .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#fontFamily
+:fontFamily rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty ;
+            rdfs:domain :Font ;
+            rdfs:range xsd:string .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#fontSize
+:fontSize rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#fontStyle
+:fontStyle rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#fontWeight
+:fontWeight rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty ;
+            rdfs:range xsd:string .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#format
+:format rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:range xsd:string ;
+        rdfs:comment "MIME type of external graphic"@en .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#gap
+:gap rdf:type owl:DatatypeProperty ;
+     rdfs:subPropertyOf owl:topDataProperty ;
+     rdfs:range xsd:decimal .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#generalizeLine
+:generalizeLine rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#initialGap
+:initialGap rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty ;
+            rdfs:range xsd:decimal .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#inlineContent
+:inlineContent rdf:type owl:DatatypeProperty ;
+               rdfs:range xsd:string .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#isAligned
+:isAligned rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf owl:topDataProperty ;
+           rdfs:range xsd:boolean .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#isRepeated
+:isRepeated rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty ;
+            rdfs:range xsd:boolean .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#onlineResource
+:onlineResource rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:range xsd:anyURI .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#opacity
+:opacity rdf:type owl:DatatypeProperty ;
+         rdfs:range xsd:decimal .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#perpendicularOffset
+:perpendicularOffset rdf:type owl:DatatypeProperty ;
+                     rdfs:range xsd:decimal .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#radius
+:radius rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:range xsd:decimal .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#rotation
+:rotation rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf owl:topDataProperty ;
+          rdfs:range xsd:decimal .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#scaleX
+:scaleX rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:range xsd:decimal .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#scaleY
+:scaleY rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:range xsd:decimal .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#scope
+:scope rdf:type owl:DatatypeProperty ;
+       rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#size
+:size rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf owl:topDataProperty ;
+      rdfs:range xsd:decimal .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#strokeColor
+:strokeColor rdf:type owl:DatatypeProperty ;
+             rdfs:range :cssColorLiteral .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#strokeDashArray
+:strokeDashArray rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty ;
+                 rdfs:range xsd:string .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#strokeDashOffset
+:strokeDashOffset rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty ;
+                  rdfs:range xsd:decimal .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#strokeLineCap
+:strokeLineCap rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdfs:range xsd:string .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#strokeLineJoin
+:strokeLineJoin rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#strokeOpacity
+:strokeOpacity rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdfs:range xsd:decimal .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#strokeWidth
+:strokeWidth rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf owl:topDataProperty ;
+             rdfs:range xsd:decimal .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#textLabel
+:textLabel rdf:type owl:DatatypeProperty ;
+           rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#AnchorPoint
+:AnchorPoint rdf:type owl:Class ;
+             rdfs:subClassOf :GraphicProperty .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#Circle
+:Circle rdf:type owl:Class ;
+        rdfs:subClassOf :Shape .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#Color
+:Color rdf:type owl:Class ;
+       rdfs:subClassOf :GraphicProperty .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#CompositeTransformation
+:CompositeTransformation rdf:type owl:Class ;
+                         rdfs:subClassOf :Transformation .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#Displacement
+:Displacement rdf:type owl:Class ;
+              rdfs:subClassOf :Transformation .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#ExternalGraphic
+:ExternalGraphic rdf:type owl:Class ;
+                 rdfs:subClassOf :GraphicObject .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#Fill
+:Fill rdf:type owl:Class ;
+      rdfs:subClassOf :GraphicProperty .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#Font
+:Font rdf:type owl:Class ;
+      rdfs:subClassOf :GraphicProperty .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#GraphicElement
+:GraphicElement rdf:type owl:Class .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#GraphicFill
+:GraphicFill rdf:type owl:Class ;
+             rdfs:subClassOf :GraphicProperty .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#GraphicObject
+:GraphicObject rdf:type owl:Class ;
+               rdfs:subClassOf :GraphicElement ;
+               owl:disjointWith :GraphicProperty .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#GraphicProperty
+:GraphicProperty rdf:type owl:Class ;
+                 rdfs:subClassOf :GraphicElement .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#GraphicStroke
+:GraphicStroke rdf:type owl:Class ;
+               rdfs:subClassOf :GraphicProperty .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#GraphicSymbol
+:GraphicSymbol rdf:type owl:Class ;
+               rdfs:subClassOf :GraphicObject .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#Halo
+:Halo rdf:type owl:Class ;
+      rdfs:subClassOf :GraphicProperty .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#LabelPlacement
+:LabelPlacement rdf:type owl:Class ;
+                rdfs:subClassOf :GraphicProperty .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#Line
+:Line rdf:type owl:Class ;
+      rdfs:subClassOf :Shape .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#LinePlacement
+:LinePlacement rdf:type owl:Class ;
+               rdfs:subClassOf :LabelPlacement ;
+               owl:disjointWith :PointPlacement .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#Mark
+:Mark rdf:type owl:Class ;
+      rdfs:subClassOf :GraphicObject .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#PointPlacement
+:PointPlacement rdf:type owl:Class ;
+                rdfs:subClassOf :LabelPlacement .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#Polygon
+:Polygon rdf:type owl:Class ;
+         rdfs:subClassOf :Shape .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#Rotation
+:Rotation rdf:type owl:Class ;
+          rdfs:subClassOf :Transformation .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#Scaling
+:Scaling rdf:type owl:Class ;
+         rdfs:subClassOf :Transformation .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#Shape
+:Shape rdf:type owl:Class ;
+       rdfs:subClassOf :GraphicObject .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#Stroke
+:Stroke rdf:type owl:Class ;
+        rdfs:subClassOf :GraphicProperty .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#Text
+:Text rdf:type owl:Class ;
+      rdfs:subClassOf :GraphicObject .
+
+
+###  https://gis.lu.se/ont/data_portrayal/graphic#Transformation
+:Transformation rdf:type owl:Class ;
+                rdfs:subClassOf :GraphicProperty .
+
+
+###  Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi

@@ -1,0 +1,167 @@
+@prefix : <https://gis.lu.se/ont/data_portrayal/style#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix skos1: <http://www.w3.org/2008/05/skos#> .
+@prefix terms: <http://purl.org/dc/terms/> .
+@base <https://gis.lu.se/ont/data_portrayal/style> .
+
+<https://gis.lu.se/ont/data_portrayal/style> rdf:type owl:Ontology ;
+                                              owl:imports <http://spinrdf.org/spin> ,
+                                                          <https://gis.lu.se/ont/data_portrayal/symbol> ,
+                                                          <http://spinrdf.org/sp> ,
+                                                          <https://gis.lu.se/ont/data_portrayal/symbolizer> ;
+                                              rdfs:label "Style ontology"@en ;
+                                              rdfs:comment "The ontology is style ontology, which is a sub-ontology that comprises a part of the data portrayal ontologies (knowledge base)."@en ;
+                                              dc:date "2018-08-03" ;
+                                              rdfs:comment """This file is created by:
+Weiming Huang
+GIS Centre
+Lund University
+weiming.huang@nateko.lu.se"""@en .
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.opengis.net/ont/geosparql#gmlLiteral
+<http://www.opengis.net/ont/geosparql#gmlLiteral> rdf:type rdfs:Datatype ;
+                                                  dc:contributor "Matthew Perry" ;
+                                                  dc:creator "OGC GeoSPARQL 1.0 Standard Working Group" ;
+                                                  dc:date "2011-06-16"^^xsd:date ;
+                                                  dc:description """
+      A GML serialization of a geometry object.
+    """@en ;
+                                                  rdfs:comment """
+      A GML serialization of a geometry object.
+    """@en ;
+                                                  rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql> ,
+                                                                   <http://www.opengis.net/spec/geosparql/1.0> ;
+                                                  rdfs:label "GML Literal"@en ;
+                                                  skos:definition """
+      A GML serialization of a geometry object.
+    """@en ;
+                                                  skos:prefLabel "GML Literal"@en .
+
+
+###  http://www.opengis.net/ont/geosparql#wktLiteral
+<http://www.opengis.net/ont/geosparql#wktLiteral> rdf:type rdfs:Datatype ;
+                                                  dc:contributor "Matthew Perry" ;
+                                                  dc:creator "OGC GeoSPARQL 1.0 Standard Working Group" ;
+                                                  dc:date "2011-06-16"^^xsd:date ;
+                                                  dc:description """
+      A Well-known Text serialization of a geometry object.
+    """@en ;
+                                                  rdfs:comment """
+      A Well-known Text serialization of a geometry object.
+    """@en ;
+                                                  rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql> ,
+                                                                   <http://www.opengis.net/spec/geosparql/1.0> ;
+                                                  rdfs:label "Well-known Text Literal"@en ;
+                                                  skos:definition """
+      A Well-known Text serialization of a geometry object.
+    """@en ;
+                                                  skos:prefLabel "Well-known Text Literal"@en .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://gis.lu.se/ont/data_portrayal/style#hasApplicationField
+:hasApplicationField rdf:type owl:ObjectProperty ;
+                     rdfs:range skos1:Concept .
+
+
+###  https://gis.lu.se/ont/data_portrayal/style#hasFeatureType
+:hasFeatureType rdf:type owl:ObjectProperty ;
+                rdfs:domain :FeatureTypeStyle .
+
+
+###  https://gis.lu.se/ont/data_portrayal/style#hasRules
+:hasRules rdf:type owl:ObjectProperty ;
+          rdfs:range :PortrayalRuleBase .
+
+
+###  https://gis.lu.se/ont/data_portrayal/style#hasStyle
+:hasStyle rdf:type owl:ObjectProperty ;
+          rdfs:range :Style .
+
+
+###  https://gis.lu.se/ont/data_portrayal/style#hasSymbolizer
+:hasSymbolizer rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
+               rdfs:domain :PortrayalRule ;
+               rdfs:range <https://gis.lu.se/ont/data_portrayal/symbolizer#Symbolizer> .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://gis.lu.se/ont/data_portrayal/style#hasMaxScaleDenominator
+:hasMaxScaleDenominator rdf:type owl:DatatypeProperty ;
+                        rdfs:domain :PortrayalRule ;
+                        rdfs:range xsd:float .
+
+
+###  https://gis.lu.se/ont/data_portrayal/style#hasMinScaleDenominator
+:hasMinScaleDenominator rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf owl:topDataProperty ;
+                        rdfs:domain :PortrayalRule ;
+                        rdfs:range xsd:float .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.w3.org/2008/05/skos#Concept
+skos1:Concept rdf:type owl:Class ;
+              terms:issued "2008-05-xx" ;
+              rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+              rdfs:label "Concept"@en ;
+              skos1:definition "An abstract idea or notion; a unit of thought."@en .
+
+
+###  https://gis.lu.se/ont/data_portrayal/style#CoverageStyle
+:CoverageStyle rdf:type owl:Class ;
+               rdfs:subClassOf :Style .
+
+
+###  https://gis.lu.se/ont/data_portrayal/style#FeatureTypeStyle
+:FeatureTypeStyle rdf:type owl:Class ;
+                  rdfs:subClassOf :Style ;
+                  rdfs:comment """A FeatureTypeStyle is a style that is applied for a specific FeatureType.
+FeatureTypeStyle inherits all properties from Style."""@en .
+
+
+###  https://gis.lu.se/ont/data_portrayal/style#PortrayalRule
+:PortrayalRule rdf:type owl:Class ;
+               rdfs:comment "A portrayal rule corresponds to a SPIN rules that realises the rule"@en .
+
+
+###  https://gis.lu.se/ont/data_portrayal/style#PortrayalRuleBase
+:PortrayalRuleBase rdf:type owl:Class ;
+                   rdfs:comment "Named graphs for containing SPIN rules."@en .
+
+
+###  https://gis.lu.se/ont/data_portrayal/style#Style
+:Style rdf:type owl:Class ;
+       rdfs:comment "The Style concept is the central concept of the Style ontology. It associates symbol sets with portrayal rule sets, which define the mapping of feature types to symbols. The Style also captures descriptive metadata and tradecraft information such as the audience for the style, scope of application and field of application."@en .
+
+
+###  https://gis.lu.se/ont/data_portrayal/style#SymbolizationRuleSet
+:SymbolizationRuleSet rdf:type owl:Class ;
+                      rdfs:subClassOf rdf:List .
+
+
+###  https://gis.lu.se/ont/data_portrayal/symbol#Symbol
+<https://gis.lu.se/ont/data_portrayal/symbol#Symbol> rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi

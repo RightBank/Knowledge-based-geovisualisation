@@ -1,0 +1,203 @@
+@prefix : <https://gis.lu.se/ont/data_portrayal/symbolizer#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix skos1: <http://www.w3.org/2008/05/skos#> .
+@prefix terms: <http://purl.org/dc/terms/> .
+
+<https://gis.lu.se/ont/data_portrayal/symbolizer> a owl:Ontology ;
+	owl:imports <https://gis.lu.se/ont/data_portrayal/legend> , <https://gis.lu.se/ont/data_portrayal/graphic> ;
+	rdfs:comment "The ontology is symbolizer ontology, which is a sub-ontology that comprises a part of the data portrayal ontologies (knowledge base)."@en ;
+	dc:date "2018-08-02" ;
+	rdfs:comment """This file is created by:
+Weiming Huang
+GIS Centre
+Lund University
+weiming.huang@nateko.lu.se"""@en .
+# 
+# 
+# #################################################################
+# #
+# #    Annotation properties
+# #
+# #################################################################
+# 
+# 
+# http://purl.org/dc/elements/1.1/contributor
+
+dc:contributor a owl:AnnotationProperty .
+# 
+# http://purl.org/dc/elements/1.1/creator
+
+dc:creator a owl:AnnotationProperty .
+# 
+# http://purl.org/dc/elements/1.1/date
+
+dc:date a owl:AnnotationProperty .
+# 
+# http://purl.org/dc/elements/1.1/description
+
+dc:description a owl:AnnotationProperty .
+# 
+# http://purl.org/dc/terms/hasVersion
+
+terms:hasVersion a owl:AnnotationProperty .
+# 
+# http://purl.org/dc/terms/issued
+
+terms:issued a owl:AnnotationProperty .
+# 
+# http://www.w3.org/2004/02/skos/core#definition
+
+skos:definition a owl:AnnotationProperty .
+# 
+# http://www.w3.org/2004/02/skos/core#prefLabel
+
+skos:prefLabel a owl:AnnotationProperty .
+# 
+# http://www.w3.org/2008/05/skos#definition
+
+skos1:definition a owl:AnnotationProperty .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Datatypes
+# #
+# #################################################################
+# 
+# 
+# http://www.opengis.net/ont/geosparql#gmlLiteral
+
+<http://www.opengis.net/ont/geosparql#gmlLiteral> a rdfs:Datatype ;
+	dc:contributor "Matthew Perry" ;
+	dc:creator "OGC GeoSPARQL 1.0 Standard Working Group" ;
+	dc:date "2011-06-16"^^xsd:date ;
+	dc:description """
+      A GML serialization of a geometry object.
+    """@en ;
+	rdfs:comment """
+      A GML serialization of a geometry object.
+    """@en ;
+	rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql> , <http://www.opengis.net/spec/geosparql/1.0> ;
+	rdfs:label "GML Literal"@en ;
+	skos:definition """
+      A GML serialization of a geometry object.
+    """@en ;
+	skos:prefLabel "GML Literal"@en .
+# 
+# http://www.opengis.net/ont/geosparql#wktLiteral
+
+<http://www.opengis.net/ont/geosparql#wktLiteral> a rdfs:Datatype ;
+	dc:contributor "Matthew Perry" ;
+	dc:creator "OGC GeoSPARQL 1.0 Standard Working Group" ;
+	dc:date "2011-06-16"^^xsd:date ;
+	dc:description """
+      A Well-known Text serialization of a geometry object.
+    """@en ;
+	rdfs:comment """
+      A Well-known Text serialization of a geometry object.
+    """@en ;
+	rdfs:isDefinedBy <http://www.opengis.net/ont/geosparql> , <http://www.opengis.net/spec/geosparql/1.0> ;
+	rdfs:label "Well-known Text Literal"@en ;
+	skos:definition """
+      A Well-known Text serialization of a geometry object.
+    """@en ;
+	skos:prefLabel "Well-known Text Literal"@en .
+# 
+# http://www.w3.org/2001/XMLSchema#date
+
+xsd:date a rdfs:Datatype .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Object Properties
+# #
+# #################################################################
+# 
+# 
+# https://gis.lu.se/ont/data_portrayal/symbolizer#hasItem
+
+:hasItem a owl:ObjectProperty ;
+	rdfs:domain :CompositeSymbolizer ;
+	rdfs:range rdf:List .
+# 
+# https://gis.lu.se/ont/data_portrayal/symbolizer#hasSymbolizer
+
+:hasSymbolizer a owl:ObjectProperty .
+# 
+# https://gis.lu.se/ont/data_portrayal/symbolizer#isSymbolizedBy
+
+:isSymbolizedBy a owl:ObjectProperty ;
+	rdfs:range :Symbolizer ;
+	rdfs:comment "This relation should be inferred via using semantic rules."@en .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Data properties
+# #
+# #################################################################
+# 
+# 
+# https://gis.lu.se/ont/data_portrayal/legend#appearsInLegend
+
+<https://gis.lu.se/ont/data_portrayal/legend#appearsInLegend> rdfs:domain :Symbolizer .
+# 
+# https://gis.lu.se/ont/data_portrayal/symbolizer#comp-op
+
+:comp-op a owl:DatatypeProperty ;
+	rdfs:range xsd:string ;
+	rdfs:comment "Composition operator valid values are \" \"src-over\", \"dest-out\", \"dest-over"@en .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Classes
+# #
+# #################################################################
+# 
+# 
+# http://www.w3.org/1999/02/22-rdf-syntax-ns#List
+
+rdf:List a owl:Class .
+# 
+# https://gis.lu.se/ont/data_portrayal/symbolizer#CompositeSymbolizer
+
+:CompositeSymbolizer a owl:Class ;
+	rdfs:subClassOf :Symbolizer .
+# 
+# https://gis.lu.se/ont/data_portrayal/symbolizer#LineSymbolizer
+
+:LineSymbolizer a owl:Class ;
+	rdfs:subClassOf :Symbolizer .
+# 
+# https://gis.lu.se/ont/data_portrayal/symbolizer#PointSymbolizer
+
+:PointSymbolizer a owl:Class ;
+	rdfs:subClassOf :Symbolizer .
+# 
+# https://gis.lu.se/ont/data_portrayal/symbolizer#PolygonSymbolizer
+
+:PolygonSymbolizer a owl:Class ;
+	rdfs:subClassOf :Symbolizer .
+# 
+# https://gis.lu.se/ont/data_portrayal/symbolizer#Symbolizer
+
+:Symbolizer a owl:Class .
+# 
+# https://gis.lu.se/ont/data_portrayal/symbolizer#TextSymbolizer
+
+:TextSymbolizer a owl:Class ;
+	rdfs:subClassOf :Symbolizer .
+# 
+# Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi

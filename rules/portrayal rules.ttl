@@ -1,0 +1,349 @@
+#This file contais the rules used for the portrayal of heritage buildings, according to their age. Please not that for each age range
+#there are two rules in which one deduces a polygon symboliser and the other deduces a point symboliser. Therefore, the rules are 
+#dependent on the inferred relations of the geometry sources rules. The rule dependency is handled by the SPIN rule engine.
+#The rules are scale-dependent in two ways, one is in the way that the geometry type varies according to scale, and the other is that all
+#the symbolisers only apply when scale is larger than 1:100,000.
+#author: Weiming Huang @ Lund University, Sweden
+#email: weiming.huang@nateko.lu.se
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix symbol: <https://gis.lu.se/ont/data_portrayal/symbol#>.
+@prefix symboliser: <https://gis.lu.se/ont/data_portrayal/symboliser#>.
+@prefix style: <https://gis.lu.se/ont/data_portrayal/style#>.
+@prefix bu_2d: <http://inspire.ec.europa.eu/ont/bu-core2d#>.
+@prefix bu_base: <http://inspire.ec.europa.eu/ont/bu-base#>.
+@prefix scale: <https://gis.lu.se/ont/visualisation_scale#>.
+@prefix gs: <https://gis.lu.se/ont/geometry_source#>.
+
+<http://inspire.ec.europa.eu/ont/bu-core2d#Building> a owl:Class ;
+	rdfs:label "2d building class" ;
+	
+	<http://spinrdf.org/spin#rule>  <https://gis.lu.se/ld/portrayal#spin_rule1>,
+									<https://gis.lu.se/ld/portrayal#spin_rule2>,
+									<https://gis.lu.se/ld/portrayal#spin_rule3>,
+									<https://gis.lu.se/ld/portrayal#spin_rule4>,
+									<https://gis.lu.se/ld/portrayal#spin_rule5>,
+									<https://gis.lu.se/ld/portrayal#spin_rule6>,
+									<https://gis.lu.se/ld/portrayal#spin_rule7>,
+									<https://gis.lu.se/ld/portrayal#spin_rule8>,
+									<https://gis.lu.se/ld/portrayal#spin_rule9>,
+									<https://gis.lu.se/ld/portrayal#spin_rule10>,
+									<https://gis.lu.se/ld/portrayal#spin_rule11>,
+									<https://gis.lu.se/ld/portrayal#spin_rule12>.
+									
+									
+#1st rule that formulates if the building age is between 600 and 900 years and the geometry that is about to be rendered
+#is of the type of polygon, then use a certain symbol.Please note is rule is dependent on the geometry source rules.
+<https://gis.lu.se/ld/portrayal#rule1> style:hasSPINRule <https://gis.lu.se/ld/portrayal#spin_rule1>.
+<https://gis.lu.se/ld/portrayal#spin_rule1>
+	a <http://spinrdf.org/sp#Construct> ;	
+	<http://spinrdf.org/spin#thisUnbound> true; 
+	<http://spinrdf.org/sp#text> """ 		
+		CONSTRUCT { ?this symboliser:isSymbolisedBy <https://gis.lu.se/ld/portrayal#heritage_bu_symboliser0_polygon> }
+		WHERE {
+			SERVICE <http://localhost:5820/heritage_bu/query/>{
+				GRAPH <http://gis.lu.se/ld/heritage_bu> {
+					?this a bu_2d:Building.
+					?this bu_base:AbstractConstruction.dateOfConstruction
+						/bu_base:DateOfEvent.beginning ?beginning.
+					BIND(year(now())-year(?beginning) as ?age)
+				FILTER (?age >= 600 && ?age < 900)
+			}}
+			?this gs:isVisualisedBy ?geomInWTK.
+			FILTER regex(xsd:string(?geomInWTK), "POLYGON")
+			
+			?client_scale a scale:ClientVisualisationScale;
+			scale:hasScaleValueDenominator ?rendering_scale.
+			FILTER(?rendering_scale <=100000 )				
+			}""".
+			
+			
+#2nd rule that formulates if the building age is between 600 and 900 years and the geometry that is about to be rendered
+#is of the type of point, then use a certain symbol.Please note is rule is dependent on the geometry source rules.
+
+<https://gis.lu.se/ld/portrayal#rule2> style:hasSPINRule <https://gis.lu.se/ld/portrayal#spin_rule2>.
+<https://gis.lu.se/ld/portrayal#spin_rule2>
+	a <http://spinrdf.org/sp#Construct> ;	
+	<http://spinrdf.org/spin#thisUnbound> true; 
+	<http://spinrdf.org/sp#text> """ 		
+		CONSTRUCT { ?this symboliser:isSymbolisedBy <https://gis.lu.se/ld/portrayal#heritage_bu_symboliser0_point> }
+		WHERE {
+			SERVICE <http://localhost:5820/heritage_bu/query/>{
+				GRAPH <http://gis.lu.se/ld/heritage_bu> {
+					?this a bu_2d:Building.
+					?this bu_base:AbstractConstruction.dateOfConstruction
+						/bu_base:DateOfEvent.beginning ?beginning.
+					BIND(year(now())-year(?beginning) as ?age)
+				FILTER (?age >= 600 && ?age < 900)
+			}}
+			?this gs:isVisualisedBy ?geomInWTK.
+			FILTER regex(xsd:string(?geomInWTK), "POINT")
+			
+			?client_scale a scale:ClientVisualisationScale;
+			scale:hasScaleValueDenominator ?rendering_scale.
+			FILTER(?rendering_scale <=100000 )				
+			}""".
+			
+			
+#3rd rule that formulates if the building age is between 450 and 600 years and the geometry that is about to be rendered
+#is of the type of polygon, then use a certain symbol.Please note is rule is dependent on the geometry source rules.
+<https://gis.lu.se/ld/portrayal#rule3> style:hasSPINRule <https://gis.lu.se/ld/portrayal#spin_rule3>.
+<https://gis.lu.se/ld/portrayal#spin_rule3>
+	a <http://spinrdf.org/sp#Construct> ;	
+	<http://spinrdf.org/spin#thisUnbound> true; 
+	<http://spinrdf.org/sp#text> """ 		
+		CONSTRUCT { ?this symboliser:isSymbolisedBy <https://gis.lu.se/ld/portrayal#heritage_bu_symboliser1_polygon> }
+		WHERE {
+			SERVICE <http://localhost:5820/heritage_bu/query/>{
+				GRAPH <http://gis.lu.se/ld/heritage_bu> {
+					?this a bu_2d:Building.
+					?this bu_base:AbstractConstruction.dateOfConstruction
+						/bu_base:DateOfEvent.beginning ?beginning.
+					BIND(year(now())-year(?beginning) as ?age)
+				FILTER (?age >= 450 && ?age < 600)
+			}}
+			?this gs:isVisualisedBy ?geomInWTK.
+			FILTER regex(xsd:string(?geomInWTK), "POLYGON")
+			
+			?client_scale a scale:ClientVisualisationScale;
+			scale:hasScaleValueDenominator ?rendering_scale.
+			FILTER(?rendering_scale <=100000 )				
+			}""".
+			
+			
+#4th rule that formulates if the building age is between 450 and 600 years and the geometry that is about to be rendered
+#is of the type of point, then use a certain symbol.Please note is rule is dependent on the geometry source rules.
+
+<https://gis.lu.se/ld/portrayal#rule4> style:hasSPINRule <https://gis.lu.se/ld/portrayal#spin_rule4>.
+<https://gis.lu.se/ld/portrayal#spin_rule4>
+	a <http://spinrdf.org/sp#Construct> ;	
+	<http://spinrdf.org/spin#thisUnbound> true; 
+	<http://spinrdf.org/sp#text> """ 		
+		CONSTRUCT { ?this symboliser:isSymbolisedBy <https://gis.lu.se/ld/portrayal#heritage_bu_symboliser1_point> }
+		WHERE {
+			SERVICE <http://localhost:5820/heritage_bu/query/>{
+				GRAPH <http://gis.lu.se/ld/heritage_bu> {
+					?this a bu_2d:Building.
+					?this bu_base:AbstractConstruction.dateOfConstruction
+						/bu_base:DateOfEvent.beginning ?beginning.
+					BIND(year(now())-year(?beginning) as ?age)
+				FILTER (?age >= 450 && ?age < 600)
+			}}
+			?this gs:isVisualisedBy ?geomInWTK.
+			FILTER regex(xsd:string(?geomInWTK), "POINT")
+			
+			?client_scale a scale:ClientVisualisationScale;
+			scale:hasScaleValueDenominator ?rendering_scale.
+			FILTER(?rendering_scale <=100000 )				
+			}""".
+			
+			
+#5th rule that formulates if the building age is between 300 and 450 years and the geometry that is about to be rendered
+#is of the type of polygon, then use a certain symbol.Please note is rule is dependent on the geometry source rules.
+<https://gis.lu.se/ld/portrayal#rule5> style:hasSPINRule <https://gis.lu.se/ld/portrayal#spin_rule5>.
+<https://gis.lu.se/ld/portrayal#spin_rule5>
+	a <http://spinrdf.org/sp#Construct> ;	
+	<http://spinrdf.org/spin#thisUnbound> true; 
+	<http://spinrdf.org/sp#text> """ 		
+		CONSTRUCT { ?this symboliser:isSymbolisedBy <https://gis.lu.se/ld/portrayal#heritage_bu_symboliser2_polygon> }
+		WHERE {
+			SERVICE <http://localhost:5820/heritage_bu/query/>{
+				GRAPH <http://gis.lu.se/ld/heritage_bu> {
+					?this a bu_2d:Building.
+					?this bu_base:AbstractConstruction.dateOfConstruction
+						/bu_base:DateOfEvent.beginning ?beginning.
+					BIND(year(now())-year(?beginning) as ?age)
+				FILTER (?age >= 300 && ?age < 450)
+			}}
+			?this gs:isVisualisedBy ?geomInWTK.
+			FILTER regex(xsd:string(?geomInWTK), "POLYGON")
+			
+			?client_scale a scale:ClientVisualisationScale;
+			scale:hasScaleValueDenominator ?rendering_scale.
+			FILTER(?rendering_scale <=100000 )				
+			}""".
+			
+			
+#6th rule that formulates if the building age is between 300 and 450 years and the geometry that is about to be rendered
+#is of the type of point, then use a certain symbol.Please note is rule is dependent on the geometry source rules.
+
+<https://gis.lu.se/ld/portrayal#rule6> style:hasSPINRule <https://gis.lu.se/ld/portrayal#spin_rule6>.
+<https://gis.lu.se/ld/portrayal#spin_rule6>
+	a <http://spinrdf.org/sp#Construct> ;	
+	<http://spinrdf.org/spin#thisUnbound> true; 
+	<http://spinrdf.org/sp#text> """ 		
+		CONSTRUCT { ?this symboliser:isSymbolisedBy <https://gis.lu.se/ld/portrayal#heritage_bu_symboliser2_point> }
+		WHERE {
+			SERVICE <http://localhost:5820/heritage_bu/query/>{
+				GRAPH <http://gis.lu.se/ld/heritage_bu> {
+					?this a bu_2d:Building.
+					?this bu_base:AbstractConstruction.dateOfConstruction
+						/bu_base:DateOfEvent.beginning ?beginning.
+					BIND(year(now())-year(?beginning) as ?age)
+				FILTER (?age >= 300 && ?age < 450)
+			}}
+			?this gs:isVisualisedBy ?geomInWTK.
+			FILTER regex(xsd:string(?geomInWTK), "POINT")
+			
+			?client_scale a scale:ClientVisualisationScale;
+			scale:hasScaleValueDenominator ?rendering_scale.
+			FILTER(?rendering_scale <=100000 )				
+			}""".
+
+
+#7th rule that formulates if the building age is between 150 and 300 years and the geometry that is about to be rendered
+#is of the type of polygon, then use a certain symbol.Please note is rule is dependent on the geometry source rules.
+<https://gis.lu.se/ld/portrayal#rule7> style:hasSPINRule <https://gis.lu.se/ld/portrayal#spin_rule7>.
+<https://gis.lu.se/ld/portrayal#spin_rule7>
+	a <http://spinrdf.org/sp#Construct> ;	
+	<http://spinrdf.org/spin#thisUnbound> true; 
+	<http://spinrdf.org/sp#text> """ 		
+		CONSTRUCT { ?this symboliser:isSymbolisedBy <https://gis.lu.se/ld/portrayal#heritage_bu_symboliser3_polygon> }
+		WHERE {
+			SERVICE <http://localhost:5820/heritage_bu/query/>{
+				GRAPH <http://gis.lu.se/ld/heritage_bu> {
+					?this a bu_2d:Building.
+					?this bu_base:AbstractConstruction.dateOfConstruction
+						/bu_base:DateOfEvent.beginning ?beginning.
+					BIND(year(now())-year(?beginning) as ?age)
+				FILTER (?age >= 150 && ?age < 300)
+			}}
+			?this gs:isVisualisedBy ?geomInWTK.
+			FILTER regex(xsd:string(?geomInWTK), "POLYGON")
+			
+			?client_scale a scale:ClientVisualisationScale;
+			scale:hasScaleValueDenominator ?rendering_scale.
+			FILTER(?rendering_scale <=100000 )				
+			}""".
+			
+			
+#8th rule that formulates if the building age is between 150 and 300 years and the geometry that is about to be rendered
+#is of the type of point, then use a certain symbol.Please note is rule is dependent on the geometry source rules.
+
+<https://gis.lu.se/ld/portrayal#rule8> style:hasSPINRule <https://gis.lu.se/ld/portrayal#spin_rule8>.
+<https://gis.lu.se/ld/portrayal#spin_rule8>
+	a <http://spinrdf.org/sp#Construct> ;	
+	<http://spinrdf.org/spin#thisUnbound> true; 
+	<http://spinrdf.org/sp#text> """ 		
+		CONSTRUCT { ?this symboliser:isSymbolisedBy <https://gis.lu.se/ld/portrayal#heritage_bu_symboliser3_point> }
+		WHERE {
+			SERVICE <http://localhost:5820/heritage_bu/query/>{
+				GRAPH <http://gis.lu.se/ld/heritage_bu> {
+					?this a bu_2d:Building.
+					?this bu_base:AbstractConstruction.dateOfConstruction
+						/bu_base:DateOfEvent.beginning ?beginning.
+					BIND(year(now())-year(?beginning) as ?age)
+				FILTER (?age >= 150 && ?age < 300)
+			}}
+			?this gs:isVisualisedBy ?geomInWTK.
+			FILTER regex(xsd:string(?geomInWTK), "POINT")
+			
+			?client_scale a scale:ClientVisualisationScale;
+			scale:hasScaleValueDenominator ?rendering_scale.
+			FILTER(?rendering_scale <=100000 )				
+			}""".
+			
+#9th rule that formulates if the building age is between 1 and 150 years and the geometry that is about to be rendered
+#is of the type of polygon, then use a certain symbol.Please note is rule is dependent on the geometry source rules.
+<https://gis.lu.se/ld/portrayal#rule9> style:hasSPINRule <https://gis.lu.se/ld/portrayal#spin_rule9>.
+<https://gis.lu.se/ld/portrayal#spin_rule9>
+	a <http://spinrdf.org/sp#Construct> ;	
+	<http://spinrdf.org/spin#thisUnbound> true; 
+	<http://spinrdf.org/sp#text> """ 		
+		CONSTRUCT { ?this symboliser:isSymbolisedBy <https://gis.lu.se/ld/portrayal#heritage_bu_symboliser4_polygon> }
+		WHERE {
+			SERVICE <http://localhost:5820/heritage_bu/query/>{
+				GRAPH <http://gis.lu.se/ld/heritage_bu> {
+					?this a bu_2d:Building.
+					?this bu_base:AbstractConstruction.dateOfConstruction
+						/bu_base:DateOfEvent.beginning ?beginning.
+					BIND(year(now())-year(?beginning) as ?age)
+				FILTER (?age >= 1 && ?age < 150)
+			}}
+			?this gs:isVisualisedBy ?geomInWTK.
+			FILTER regex(xsd:string(?geomInWTK), "POLYGON")
+			
+			?client_scale a scale:ClientVisualisationScale;
+			scale:hasScaleValueDenominator ?rendering_scale.
+			FILTER(?rendering_scale <=100000 )				
+			}""".
+			
+			
+#10th rule that formulates if the building age is between 1 and 150 years and the geometry that is about to be rendered
+#is of the type of point, then use a certain symbol.Please note is rule is dependent on the geometry source rules.
+
+<https://gis.lu.se/ld/portrayal#rule10> style:hasSPINRule <https://gis.lu.se/ld/portrayal#spin_rule10>.
+<https://gis.lu.se/ld/portrayal#spin_rule10>
+	a <http://spinrdf.org/sp#Construct> ;	
+	<http://spinrdf.org/spin#thisUnbound> true; 
+	<http://spinrdf.org/sp#text> """ 		
+		CONSTRUCT { ?this symboliser:isSymbolisedBy <https://gis.lu.se/ld/portrayal#heritage_bu_symboliser4_point> }
+		WHERE {
+			SERVICE <http://localhost:5820/heritage_bu/query/>{
+				GRAPH <http://gis.lu.se/ld/heritage_bu> {
+					?this a bu_2d:Building.
+					?this bu_base:AbstractConstruction.dateOfConstruction
+						/bu_base:DateOfEvent.beginning ?beginning.
+					BIND(year(now())-year(?beginning) as ?age)
+				FILTER (?age >= 1 && ?age < 150)
+			}}
+			?this gs:isVisualisedBy ?geomInWTK.
+			FILTER regex(xsd:string(?geomInWTK), "POINT")
+			
+			?client_scale a scale:ClientVisualisationScale;
+			scale:hasScaleValueDenominator ?rendering_scale.
+			FILTER(?rendering_scale <=100000 )				
+			}""".
+
+
+#11th rule that formulates if the building age information is missing (entails non-monotonic semantics)and the geometry that is about to be rendered
+#is of the type of polygon, then use a certain symbol.Please note is rule is dependent on the geometry source rules.
+<https://gis.lu.se/ld/portrayal#rule11> style:hasSPINRule <https://gis.lu.se/ld/portrayal#spin_rule11>.
+<https://gis.lu.se/ld/portrayal#spin_rule11>
+	a <http://spinrdf.org/sp#Construct> ;	
+	<http://spinrdf.org/spin#thisUnbound> true; 
+	<http://spinrdf.org/sp#text> """ 		
+		CONSTRUCT { ?this symboliser:isSymbolisedBy <https://gis.lu.se/ld/portrayal#heritage_bu_symboliser5_polygon> }
+		WHERE {
+			SERVICE <http://localhost:5820/heritage_bu/query/>{
+				GRAPH <http://gis.lu.se/ld/heritage_bu> {
+					?this a bu_2d:Building.
+					FILTER NOT EXISTS{
+					?this bu_base:AbstractConstruction.dateOfConstruction ?date.}
+			}}
+			?this gs:isVisualisedBy ?geomInWTK.
+			FILTER regex(xsd:string(?geomInWTK), "POLYGON")
+			
+			?client_scale a scale:ClientVisualisationScale;
+			scale:hasScaleValueDenominator ?rendering_scale.
+			FILTER(?rendering_scale <=100000 )				
+			}""".
+			
+			
+#12th rule that formulates if the building age information is missing (entails non-monotonic semantics) and the geometry that is about to be rendered
+#is of the type of point, then use a certain symbol.Please note is rule is dependent on the geometry source rules.
+
+<https://gis.lu.se/ld/portrayal#rule12> style:hasSPINRule <https://gis.lu.se/ld/portrayal#spin_rule12>.
+<https://gis.lu.se/ld/portrayal#spin_rule12>
+	a <http://spinrdf.org/sp#Construct> ;	
+	<http://spinrdf.org/spin#thisUnbound> true; 
+	<http://spinrdf.org/sp#text> """ 		
+		CONSTRUCT { ?this symboliser:isSymbolisedBy <https://gis.lu.se/ld/portrayal#heritage_bu_symboliser5_point> }
+		WHERE {
+			SERVICE <http://localhost:5820/heritage_bu/query/>{
+				GRAPH <http://gis.lu.se/ld/heritage_bu> {
+					?this a bu_2d:Building.
+					FILTER NOT EXISTS{
+					?this bu_base:AbstractConstruction.dateOfConstruction ?date.}
+			}}
+			?this gs:isVisualisedBy ?geomInWTK.
+			FILTER regex(xsd:string(?geomInWTK), "POINT")
+			
+			?client_scale a scale:ClientVisualisationScale;
+			scale:hasScaleValueDenominator ?rendering_scale.
+			FILTER(?rendering_scale <=100000 )				
+			}""".
