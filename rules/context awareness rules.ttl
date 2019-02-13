@@ -1,0 +1,57 @@
+#This file contais the rules used for selecting appropriate styles and geometry source depending on context information and the application fields of the style/geometry source
+
+#author: Weiming Huang @ Lund University, Sweden
+#email: weiming.huang@nateko.lu.se
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix symbol: <https://gis.lu.se/ont/data_portrayal/symbol#>.
+@prefix bu_2d: <http://inspire.ec.europa.eu/ont/bu-core2d#>.
+@prefix bu_base: <http://inspire.ec.europa.eu/ont/bu-base#>.
+@prefix scale: <https://gis.lu.se/ont/visualisation_scale#>.
+@prefix gs: <https://gis.lu.se/ont/geometry_source#>.
+@prefix geo: <http://www.opengis.net/ont/geosparql#>.
+@prefix context: <https://gis.lu.se/ont/context#>.
+
+<http://www.w3.org/ns/dcat#Dataset> a owl:Class ;
+	rdfs:label "geospatial dataset" ;
+	#first rule finds the appropriate geometry source rule base
+	<http://spinrdf.org/spin#rule> [
+	a <http://spinrdf.org/sp#Construct> ;
+	<http://spinrdf.org/spin#thisUnbound> true; 
+	<http://spinrdf.org/sp#text> """ 
+		
+		CONSTRUCT { ?this gs:hasGeometryRuleBase ?geom_source_rule_base }
+		WHERE {
+			SERVICE <http://localhost:5820/heritage_bu/query/>{
+			GRAPH ?this {
+				?s ?p ?o.
+			}}
+			?geom_source_rule_base a gs:GeometrySourceRuleBase;
+								gs:hasApplicationField ?application_field.
+			?client_context a context:VisualisationContext;
+						context:hasVisualisationPhenomenon ?context_phenopmenon.
+			?context_phenopmenon rdfs:subClassOf|owl:sameAs|skos:broader|skos:exactMatch ?application_field.
+            }
+            """];
+	#second rule finds the appropriate style
+	<http://spinrdf.org/spin#rule> [
+	a <http://spinrdf.org/sp#Construct> ;
+	<http://spinrdf.org/spin#thisUnbound> true; 
+	<http://spinrdf.org/sp#text> """ 
+		
+		CONSTRUCT { ?this style:hasStyle ?style }
+		WHERE {
+			SERVICE <http://localhost:5820/heritage_bu/query/>{
+			GRAPH ?this {
+				?s ?p ?o.
+			}}
+			?style a style:FeatureTypeStyle;
+					style:hasApplicationField ?application_field.
+			?client_context a context:VisualisationContext;
+						context:hasVisualisationPhenomenon ?context_phenopmenon.
+			?context_phenopmenon rdfs:subClassOf|owl:sameAs|skos:broader|skos:exactMatch ?application_field.
+            }
+            """].

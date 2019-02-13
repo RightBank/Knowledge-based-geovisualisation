@@ -53,24 +53,12 @@ owl:topObjectProperty rdfs:range :Scale .
                         rdfs:range xsd:float .
 
 
-###  https://gis.lu.se/ont/visualisation_scale#hasScaleValueDenominator
-:hasScaleValueDenominator rdf:type owl:DatatypeProperty ;
-                          rdfs:domain :ClientVisualisationScale ;
-                          rdfs:range xsd:float ;
-                          rdfs:comment "Use for connecting a ClientVisualisationScale instance to its value."@en .
-
-
 #################################################################
 #    Classes
 #################################################################
 
 ###  http://www.w3.org/2004/02/skos/core#Concept
 <http://www.w3.org/2004/02/skos/core#Concept> rdf:type owl:Class .
-
-
-###  https://gis.lu.se/ont/visualisation_scale#ClientVisualisationScale
-:ClientVisualisationScale rdf:type owl:Class ;
-                          rdfs:comment "The current cartographic scale transferred from the client"@en .
 
 
 ###  https://gis.lu.se/ont/visualisation_scale#GeometrySet

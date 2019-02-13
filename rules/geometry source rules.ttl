@@ -13,6 +13,7 @@
 @prefix bu_2d: <http://inspire.ec.europa.eu/ont/bu-core2d#>.
 @prefix bu_base: <http://inspire.ec.europa.eu/ont/bu-base#>.
 @prefix scale: <https://gis.lu.se/ont/visualisation_scale#>.
+@prefix context: <https://gis.lu.se/ont/context#>.
 @prefix gs: <https://gis.lu.se/ont/geometry_source#>.
 @prefix geo: <http://www.opengis.net/ont/geosparql#>.
 
@@ -49,8 +50,8 @@
 				<https://gis.lu.se/ont/visualisation_scale#hasMinScaleDenominator> ?min_scale;
 				<https://gis.lu.se/ont/visualisation_scale#hasMaxScaleDenominator> ?max_scale]
 			}
-			?client_scale a scale:ClientVisualisationScale;
-						scale:hasScaleValueDenominator ?rendering_scale.
+			?client_context a context:VisualisationContext;
+						context:hasVisualisationScale ?rendering_scale.
 			FILTER (?min_scale<?rendering_scale && ?max_scale>=?rendering_scale)
             }
             """];
